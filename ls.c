@@ -5,9 +5,13 @@
 int main(void) {
    struct dirent **namelist;
    int n = scandir(".", &namelist, 0, alphasort);
+   int p = 0;
+
    if (n < 0)
        perror("scandir");
    else
-        while (n--)
-          printf("%s\n", namelist[n]->d_name);
+        while (p < n){
+          printf("%s\n", namelist[p]->d_name);
+          p++;
+        }
 }
