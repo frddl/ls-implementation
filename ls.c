@@ -13,22 +13,34 @@ int comparator(const struct dirent **a, const struct dirent **b) {
 }
 
 int processArgs(int argc, char *argv[]){
-     if (argc == 2){
-       switch(*argv[1]){
-         case 'r':
-           ORDER = -1;
-           break;
-         case 'A':
-           SKIPDOTS = 0;
-           break;
-         case 'a':
-           SKIPDOTS = 0;
-           SKIPPARENT = 0;
-           break;
-         case '1':
-           PERLINE = 1;
-           break;
-       }
+    int strsize = 0;
+    int i;
+    for (i = 1; i < argc; i++)
+      strsize += strlen(argv[i]);
+
+    char *cmdstring = malloc(strsize);
+
+    for (i = 1; i < argc; i++) {
+      strcat(cmdstring, argv[i]);
+      if (argc > i+1)
+        break;
+    }
+
+    for (i = 1; i < strlen(cmdstring); i++)
+      switch(cmdstring[i]){
+        case 'r':
+          ORDER = -1;
+          break;
+        case 'A':
+          SKIPDOTS = 0;
+          break;
+        case 'a':
+          SKIPDOTS = 0;
+          SKIPPARENT = 0;
+          break;
+        case '1':
+          PERLINE = 1;
+          break;
      }
 }
 
