@@ -4,4 +4,4 @@
 -----
 &nbsp;
 # done:&nbsp;&nbsp; ls [-Aair1]
-# left:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ls [-CcdFfhklnqRSstuwx] [file ...]
+# left:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ls [-CcdFfhklnqRSstuwx] [file ...]
