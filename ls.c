@@ -12,26 +12,29 @@ int comparator(const struct dirent **a, const struct dirent **b) {
   return ORDER * strcasecmp((*a)->d_name, (*b)->d_name);
 }
 
+int processArgs(int argc, char *argv[]){
+     if (argc == 2){
+       switch(*argv[1]){
+         case 'r':
+           ORDER = -1;
+           break;
+         case 'A':
+           SKIPDOTS = 0;
+           break;
+         case 'a':
+           SKIPDOTS = 0;
+           SKIPPARENT = 0;
+           break;
+         case '1':
+           PERLINE = 1;
+           break;
+       }
+     }
+}
+
 int main(int argc, char *argv[]) {
    struct dirent **namelist;
-
-   if (argc == 2){
-     switch(*argv[1]){
-       case 'r':
-         ORDER = -1;
-         break;
-       case 'A':
-         SKIPDOTS = 0;
-         break;
-       case 'a':
-         SKIPDOTS = 0;
-         SKIPPARENT = 0;
-         break;
-       case '1':
-         PERLINE = 1;
-         break;
-     }
-   }
+   processArgs(argc, argv);
 
    int n = scandir(".", &namelist, 0, comparator);
    int p = 0;
@@ -45,13 +48,15 @@ int main(int argc, char *argv[]) {
           char *name = (namelist[p]->d_name);
 
           if (SKIPDOTS){
-            if (name[0] != '.')
+            if (name[0] != '.'){
               printf("%s%s", name, divisor);
+            }
           }
 
           else if (SKIPPARENT && !SKIPDOTS) {
-              if (!(name[0] == '.' && (strlen(name) == 1 || ((name[1] == '.') && strlen(name) == 2))))
+              if (!(name[0] == '.' && (strlen(name) == 1 || ((name[1] == '.') && strlen(name) == 2)))){
                 printf("%s%s", name, divisor);
+              }
           }
 
           else {
@@ -61,6 +66,6 @@ int main(int argc, char *argv[]) {
           p++;
         }
 
-        printf(PERLINE ? "" : "\n"); 
+        printf(PERLINE ? "" : "\n");
     }
 }
