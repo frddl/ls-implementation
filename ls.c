@@ -6,7 +6,7 @@
 int ORDER = 1;
 
 int comparator(const struct dirent **a, const struct dirent **b) {
-  return ORDER * strcmp((*a)->d_name, (*b)->d_name);
+  return ORDER * strcasecmp((*a)->d_name, (*b)->d_name);
 }
 
 int main(int argc, char *argv[]) {
