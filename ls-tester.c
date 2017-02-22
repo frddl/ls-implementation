@@ -14,8 +14,8 @@ int main(int argc, char **argv){
     system("gcc ls.c -o ls2");
 
     FILE *fp_orig, *fp_test;
-    char orig[2048], test[2048];
-    char *args = "AacCdFfhiklnqRrSstux"; // edit w, mistakes
+    char orig[128], test[128];
+    char *args = "AacCdFfhiklnqRrSstux1"; // edit w, mistakes
 
     int suc = 0, fail = 0;
 
@@ -46,10 +46,12 @@ int main(int argc, char **argv){
       }
 
       printf("%c\n" RESET, argument);
+      orig[0] = test[0] = 0;
     }
 
     printf("Score: %.2f/1.00\n", (suc * 1.00)/(suc + fail));
 
+    popen("rm ls2", "r");
     pclose(fp_orig);
     pclose(fp_test);
     return 0;
